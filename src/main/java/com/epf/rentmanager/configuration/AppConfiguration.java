@@ -1,4 +1,4 @@
-package com.epf.rentmanager.utils;
+package com.epf.rentmanager.configuration;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

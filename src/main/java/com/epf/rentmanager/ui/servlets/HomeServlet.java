@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
@@ -16,22 +19,36 @@ import com.epf.rentmanager.service.VehicleService;
 
 @WebServlet(urlPatterns = "/home")
 
-public class HomeServlet extends HttpServlet {                         
+public class HomeServlet extends HttpServlet {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
+	ClientService clientService;
+	@Autowired
+	VehicleService vehicleService;
+	@Autowired
+	ReservationService reservationService;
+
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void init() throws ServletException {
+		super.init();
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int nbClients = 0;
 		int nbVehicles = 0;
 		int nbResa = 0;
 		try {
-			nbClients = ClientService.getInstance().count();
-			nbVehicles = VehicleService.getInstance().count();
-			nbResa = ReservationService.getInstance().count();
+			nbClients = clientService.count();
+			nbVehicles = vehicleService.count();
+			nbResa = reservationService.count();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
@@ -41,5 +58,5 @@ public class HomeServlet extends HttpServlet {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp");
 		dispatcher.forward(request, response);
 	}
-                        
+
 }

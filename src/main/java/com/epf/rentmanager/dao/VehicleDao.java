@@ -5,25 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Repository;
 
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
 
+@Repository
+
 public class VehicleDao {
 
-	private static VehicleDao instance = null;
-
 	private VehicleDao() {
-	}
-
-	public static VehicleDao getInstance() {
-		if (instance == null) {
-			instance = new VehicleDao();
-		}
-		return instance;
 	}
 
 	private static final String CREATE_VEHICLE_QUERY = "INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES(?, ?, ?);";
@@ -31,6 +27,8 @@ public class VehicleDao {
 	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
 	private static final String COUNT_VEHICLES_QUERY = "SELECT COUNT(*) FROM Vehicle;";
+	private static final String FIND_VEHICLE_BY_CLIENT_QUERY = "SELECT DISTINCT V.id, constructeur, modele, nb_places,  FROM Reservation AS R INNER JOIN Vehicle AS V ON R.vehicle_id = V.id WHERE R.client_id=?;";
+	private static final String COUNT_VEHICLE_BY_CLIENT_QUERY = "SELECT COUNT(*)  FROM (SELECT DISTINCT V.id, constructeur, modele, nb_places,  FROM Reservation AS R INNER JOIN Vehicle AS V ON R.vehicle_id = V.id WHERE R.client_id=?);";
 
 	public long create(Vehicle vehicle) throws DaoException {
 		long numberCreated = 0;
@@ -126,6 +124,53 @@ public class VehicleDao {
 		try {
 			Connection cm = ConnectionManager.getConnection();
 			PreparedStatement pstmt = cm.prepareStatement(COUNT_VEHICLES_QUERY);
+			ResultSet rs = pstmt.executeQuery();
+
+			rs.last();
+
+			nbVehicles = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return nbVehicles;
+	}
+
+	public List<Vehicle> findVehicleByClientId(int clientId) throws DaoException {
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(FIND_VEHICLE_BY_CLIENT_QUERY);
+			pstmt.setInt(1, clientId);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			List<Vehicle> vehicules = new ArrayList<Vehicle>();
+			while (rs.next()) {
+				int vehicleId = rs.getInt("id");
+				String constructeur = rs.getString("modele");
+				String modele = rs.getString("constructeur");
+				int nb_places = rs.getInt("nb_places");
+
+				Vehicle vehicule = new Vehicle(vehicleId, constructeur, modele, nb_places);
+
+				vehicules.add(vehicule);
+			}
+			conn.close();
+			return vehicules;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return Collections.emptyList();
+	}
+
+	public int countByClientId(int clientId) throws DaoException {
+		int nbVehicles = 0;
+		try {
+			Connection cm = ConnectionManager.getConnection();
+			PreparedStatement pstmt = cm.prepareStatement(COUNT_VEHICLE_BY_CLIENT_QUERY);
+			pstmt.setInt(1, clientId);
 			ResultSet rs = pstmt.executeQuery();
 
 			rs.last();

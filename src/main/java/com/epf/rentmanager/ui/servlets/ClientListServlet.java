@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.service.ClientService;
@@ -21,18 +24,26 @@ public class ClientListServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	@Autowired
+	ClientService clientService;
+	
+	@Override
+	public void init() throws ServletException {
+	super.init();
+	SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+	}
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<Client> clients;
 		try {
-			clients = ClientService.getInstance().findAll();
+			clients = clientService.findAll();
 			request.setAttribute("clients", clients);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/users/list.jsp");
 			dispatcher.forward(request, response);
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

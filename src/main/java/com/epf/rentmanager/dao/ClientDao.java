@@ -11,22 +11,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.persistence.ConnectionManager;
 
+@Repository
 public class ClientDao {
 
-	private static ClientDao instance = null;
-
 	private ClientDao() {
-	}
-
-	public static ClientDao getInstance() {
-		if (instance == null) {
-			instance = new ClientDao();
-		}
-		return instance;
 	}
 
 	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?);";
@@ -133,21 +127,21 @@ public class ClientDao {
 
 		return Collections.emptyList();
 	}
-	
+
 	public int count() throws DaoException {
 		int nbClients = 0;
 		try {
 			Connection cm = ConnectionManager.getConnection();
 			PreparedStatement pstmt = cm.prepareStatement(COUNT_CLIENTS_QUERY);
 			ResultSet rs = pstmt.executeQuery();
-			
+
 			rs.last();
-			
+
 			nbClients = rs.getInt(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return nbClients;
 	}
 }

@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
@@ -28,6 +31,20 @@ public class RentCreateServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Autowired
+	ClientService clientService;
+	@Autowired
+	VehicleService vehicleService;
+	@Autowired
+	ReservationService reservationService;
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+	}
+
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,8 +52,8 @@ public class RentCreateServlet extends HttpServlet {
 		List<Vehicle> vehicles;
 		List<Client> clients;
 		try {
-			vehicles = VehicleService.getInstance().findAll();
-			clients = ClientService.getInstance().findAll();
+			vehicles = vehicleService.findAll();
+			clients = clientService.findAll();
 			request.setAttribute("listClients", clients);
 			request.setAttribute("listVehicles", vehicles);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp");
@@ -61,7 +78,7 @@ public class RentCreateServlet extends HttpServlet {
 
 		Reservation reservation = new Reservation(0, clientId, vehicleId, startDate, endDate);
 		try {
-			ReservationService.getInstance().create(reservation);
+			reservationService.create(reservation);
 			response.sendRedirect("/rentmanager/rents");
 		} catch (ServiceException e) {
 			e.printStackTrace();
