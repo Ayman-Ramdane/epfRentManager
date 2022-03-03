@@ -46,7 +46,8 @@
 
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="modele"
-												name="modele" placeholder="Modele" maxlength="100" required>
+												name="modele" placeholder="Modele" maxlength="100"
+												pattern="[a-zA-Z0-9]+" required>
 										</div>
 									</div>
 									<div class="form-group">

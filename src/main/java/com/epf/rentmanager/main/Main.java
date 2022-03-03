@@ -36,12 +36,16 @@ public class Main {
 		ClientService clientService = context.getBean(ClientService.class);
 		VehicleService vehicleService = context.getBean(VehicleService.class);
 		ReservationService reservationService = context.getBean(ReservationService.class);
-		int Id = 4;
+		int Id = 5;
 		try {
-			int rents = vehicleService.countByClientId(Id);
+			Vehicle vehicle = new Vehicle(5,"","",4);
+			vehicleService.create(vehicle);
+			List<Vehicle> rents = vehicleService.findAll();
 			System.out.println(rents);
+			vehicleService.delete(vehicle);
+			List<Vehicle> vvv = vehicleService.findAll();
+			System.out.println(vvv);
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

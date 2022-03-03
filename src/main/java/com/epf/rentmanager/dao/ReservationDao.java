@@ -26,6 +26,7 @@ public class ReservationDao {
 	private static final String DELETE_RESERVATION_QUERY = "DELETE FROM Reservation WHERE id=?;";
 	private static final String FIND_RESERVATIONS_BY_CLIENT_QUERY = "SELECT id, constructeur, modele, debut, fin FROM Reservation WHERE client_id=?;";
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
+	private static final String FIND_CLIENT_ID_BY_VEHICLE_QUERY = "SELECT DISTINCT client_id FROM Reservation WHERE vehicle_id=?;";
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 	private static final String COUNT_RESERVATIONS_QUERY = "SELECT COUNT(*) FROM Reservation;";
 	private static final String FIND_RESERVATIONS_CLIENTS_VEHICLES_QUERY = "SELECT R.id, nom, prenom, constructeur, modele, debut, fin FROM Reservation AS R INNER JOIN Vehicle AS V ON R.vehicle_id = V.id INNER JOIN Client AS C ON C.id = R.client_id;";
@@ -131,7 +132,31 @@ public class ReservationDao {
 		}
 
 		return Collections.emptyList();
+	}
 
+	public List<Integer> findClientIdByVehicleId(int vehicleId) throws DaoException {
+		try {
+			Connection conn = ConnectionManager.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(FIND_CLIENT_ID_BY_VEHICLE_QUERY);
+
+			pstmt.setInt(1, vehicleId);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			List<Integer> clientIds = new ArrayList<Integer>();
+			while (rs.next()) {
+
+				int clientId = rs.getInt("client_id");
+				clientIds.add(clientId);
+			}
+			conn.close();
+			return clientIds;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return Collections.emptyList();
 	}
 
 	public List<Reservation> findAll() throws DaoException {

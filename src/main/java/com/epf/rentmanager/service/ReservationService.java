@@ -55,6 +55,15 @@ public class ReservationService {
 		}
 		return null;
 	}
+	
+	public List<Integer> findClientIdByVehicleId(int vehicleId) throws ServiceException {
+		try {
+			return this.reservationDao.findClientIdByVehicleId(vehicleId);
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public List<Reservation> findAll() throws ServiceException {
 		try {

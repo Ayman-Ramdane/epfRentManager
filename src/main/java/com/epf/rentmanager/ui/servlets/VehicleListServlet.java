@@ -47,4 +47,20 @@ public class VehicleListServlet extends HttpServlet {
 		}
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int vehicleId = -1;
+		String vehicleIdString = request.getParameter("delete");
+		try {
+			if (vehicleIdString != null) {
+				vehicleId = Integer.parseInt(vehicleIdString);
+				Vehicle vehicule = new Vehicle(vehicleId, "", "", 0);
+				vehicleService.delete(vehicule);
+				response.sendRedirect("/rentmanager/cars");
+			}
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -1,5 +1,6 @@
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\RentListServlet.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\main\Main.java
+C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\ClientUpdateServlet.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\service\VehicleService.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\configuration\AppConfiguration.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\ClientListServlet.java
@@ -23,3 +24,4 @@ C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\e
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\exception\ServiceException.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\ClientCreateServlet.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\HomeServlet.java
+C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\VehicleDetailsServlet.java

@@ -1,6 +1,7 @@
 package com.epf.rentmanager.ui.servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -24,16 +25,16 @@ public class ClientListServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Autowired
 	ClientService clientService;
-	
+
 	@Override
 	public void init() throws ServletException {
-	super.init();
-	SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		super.init();
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -46,7 +47,22 @@ public class ClientListServlet extends HttpServlet {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int clientId = -1;
+		String clientIdString = request.getParameter("delete");
+		try {
+			if (clientIdString != null) {
+				clientId = Integer.parseInt(clientIdString);
+				Client client = new Client(clientId, "", "", "", LocalDate.now());
+				clientService.delete(client);
+				response.sendRedirect("/rentmanager/users");
+			}
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+	}
 }
