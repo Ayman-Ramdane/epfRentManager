@@ -2,12 +2,14 @@ package com.epf.rentmanager.main;
 
 import com.epf.rentmanager.configuration.AppConfiguration;
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -36,15 +38,13 @@ public class Main {
 		ClientService clientService = context.getBean(ClientService.class);
 		VehicleService vehicleService = context.getBean(VehicleService.class);
 		ReservationService reservationService = context.getBean(ReservationService.class);
-		int Id = 5;
 		try {
-			Vehicle vehicle = new Vehicle(5,"","",4);
-			vehicleService.create(vehicle);
-			List<Vehicle> rents = vehicleService.findAll();
+			Client client = new Client(6,"AlGhul","Talia", "talia.ghul@gmail.com", LocalDate.parse("1988-10-15"));
+			List<Client> clients = clientService.findAll();
+			System.out.println(clients);
+			clientService.update(client);
+			List<Client> rents = clientService.findAll();
 			System.out.println(rents);
-			vehicleService.delete(vehicle);
-			List<Vehicle> vvv = vehicleService.findAll();
-			System.out.println(vvv);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

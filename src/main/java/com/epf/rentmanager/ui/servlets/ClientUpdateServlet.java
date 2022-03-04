@@ -25,7 +25,7 @@ public class ClientUpdateServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Autowired
 	ClientService clientService;
 
@@ -38,6 +38,18 @@ public class ClientUpdateServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int clientId = Integer.parseInt(request.getParameter("id"));
+		request.setAttribute("clientId", clientId);
+		try {
+			Client client = clientService.findById(clientId);
+			request.setAttribute("lastName", client.getLastname());
+			request.setAttribute("firstName", client.getFirstname());
+			request.setAttribute("email", client.getEmail());
+			request.setAttribute("birthDate", client.getBirthdate());
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/users/update.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -46,6 +58,7 @@ public class ClientUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		int clientId = Integer.parseInt(request.getParameter("id"));
 		String nom = request.getParameter("lastname");
 		String prenom = request.getParameter("firstname");
 		String email = request.getParameter("email");
@@ -53,9 +66,9 @@ public class ClientUpdateServlet extends HttpServlet {
 
 		LocalDate birthDate = LocalDate.parse(birthDateString, formatter);
 
-		Client client = new Client(0, nom, prenom, email, birthDate);
+		Client client = new Client(clientId, nom, prenom, email, birthDate);
 		try {
-			clientService.create(client);
+			clientService.update(client);
 
 		} catch (ServiceException e) {
 			e.printStackTrace();

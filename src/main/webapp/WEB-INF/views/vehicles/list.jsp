@@ -47,7 +47,7 @@
 													<a class="btn btn-primary"
 														href="${pageContext.request.contextPath}/cars/details?id=${vehicle.id}">
 														<i class="fa fa-play"></i>
-													</a> <a class="btn btn-success" href="#"> <i
+													</a> <a class="btn btn-success" href="${pageContext.request.contextPath}/cars/updates?id=${vehicle.id}"> <i
 														class="fa fa-edit"></i>
 													</a>
 													<button type="submit" class="btn btn-danger" name="delete"

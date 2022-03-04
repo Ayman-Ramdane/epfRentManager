@@ -43,8 +43,9 @@
 											<td><c:out value="${rent.dateEnd}" /></td>
 											<td>
 												<form method="post">
-													<a class="btn btn-success disabled" href="#"> <i
-														class="fa fa-edit"></i>
+													<a class="btn btn-success"
+														href="${pageContext.request.contextPath}/rents/updates?id=${rent.id}">
+														<i class="fa fa-edit"></i>
 													</a>
 													<button class="btn btn-danger" name="delete"
 														value="${rent.id}"

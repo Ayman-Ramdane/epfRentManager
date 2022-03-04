@@ -56,8 +56,9 @@ public class ClientDetailsServlet extends HttpServlet {
 			client = clientService.findById(Id);
 			rents = reservationService.findResaAndVehicleByClientId(Id);
 			cars = vehicleService.findVehicleByClientId(Id);
-			nbResa = reservationService.countByClientId(Id);
-			nbCar = vehicleService.countByClientId(Id);
+			nbResa = rents.size();
+			nbCar = cars.size();
+
 			request.setAttribute("userName", client.getLastname() + " " + client.getFirstname());
 			request.setAttribute("userEmail", client.getEmail());
 			request.setAttribute("rents", rents);

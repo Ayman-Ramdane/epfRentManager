@@ -23,12 +23,12 @@ public class VehicleDao {
 	}
 
 	private static final String CREATE_VEHICLE_QUERY = "INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES(?, ?, ?);";
+	private static final String UPDATE_VEHICLE_QUERY = "UPDATE Vehicle SET constructeur = ?, modele = ?, nb_places = ? WHERE id = ?;";
 	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
 	private static final String COUNT_VEHICLES_QUERY = "SELECT COUNT(*) FROM Vehicle;";
-	private static final String FIND_VEHICLE_BY_CLIENT_QUERY = "SELECT DISTINCT V.id, constructeur, modele, nb_places,  FROM Reservation AS R INNER JOIN Vehicle AS V ON R.vehicle_id = V.id WHERE R.client_id=?;";
-	private static final String COUNT_VEHICLE_BY_CLIENT_QUERY = "SELECT COUNT(*)  FROM (SELECT DISTINCT V.id, constructeur, modele, nb_places,  FROM Reservation AS R INNER JOIN Vehicle AS V ON R.vehicle_id = V.id WHERE R.client_id=?);";
+	private static final String FIND_VEHICLE_BY_CLIENT_QUERY = "SELECT DISTINCT V.id, constructeur, modele, nb_places  FROM Reservation AS R INNER JOIN Vehicle AS V ON R.vehicle_id = V.id WHERE R.client_id=?;";
 
 	public long create(Vehicle vehicle) throws DaoException {
 		long numberCreated = 0;
@@ -39,6 +39,26 @@ public class VehicleDao {
 			pstmt.setString(1, vehicle.getConstructor());
 			pstmt.setString(2, vehicle.getModel());
 			pstmt.setInt(3, vehicle.getNbPlaces());
+
+			numberCreated = pstmt.executeUpdate();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return numberCreated;
+
+	}
+	
+	public long update(Vehicle vehicle) throws DaoException {
+		long numberCreated = 0;
+		try {
+			Connection conn = ConnectionManager.getConnection();
+
+			PreparedStatement pstmt = conn.prepareStatement(UPDATE_VEHICLE_QUERY);
+			pstmt.setString(1, vehicle.getConstructor());
+			pstmt.setString(2, vehicle.getModel());
+			pstmt.setInt(3, vehicle.getNbPlaces());
+			pstmt.setInt(4, vehicle.getId());
 
 			numberCreated = pstmt.executeUpdate();
 			conn.close();
@@ -162,23 +182,4 @@ public class VehicleDao {
 
 		return Collections.emptyList();
 	}
-
-	public int countByClientId(int clientId) throws DaoException {
-		int nbVehicles = 0;
-		try {
-			Connection cm = ConnectionManager.getConnection();
-			PreparedStatement pstmt = cm.prepareStatement(COUNT_VEHICLE_BY_CLIENT_QUERY);
-			pstmt.setInt(1, clientId);
-			ResultSet rs = pstmt.executeQuery();
-
-			rs.last();
-
-			nbVehicles = rs.getInt(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return nbVehicles;
-	}
-
 }

@@ -29,6 +29,15 @@ public class ReservationService {
 		return 0;
 	}
 
+	public long update(Reservation reservation) throws ServiceException {
+		try {
+			return this.reservationDao.update(reservation);
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 	public long delete(Reservation reservation) throws ServiceException {
 		try {
 			return this.reservationDao.delete(reservation);
@@ -36,6 +45,15 @@ public class ReservationService {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	public Reservation findResaById(int reservationId) throws ServiceException {
+		try {
+			return this.reservationDao.findResaById(reservationId);
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public List<Reservation> findResaByClientId(int clientId) throws ServiceException {
@@ -55,7 +73,7 @@ public class ReservationService {
 		}
 		return null;
 	}
-	
+
 	public List<Integer> findClientIdByVehicleId(int vehicleId) throws ServiceException {
 		try {
 			return this.reservationDao.findClientIdByVehicleId(vehicleId);
@@ -102,16 +120,4 @@ public class ReservationService {
 		}
 		return nbResa;
 	}
-
-	public int countByClientId(int clientId) throws ServiceException {
-		int nbResa = 0;
-
-		try {
-			nbResa = this.reservationDao.countByClientId(clientId);
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
-		return nbResa;
-	}
-
 }

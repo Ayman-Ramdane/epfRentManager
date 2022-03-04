@@ -30,6 +30,17 @@ public class VehicleService {
 		return numberCreated;
 	}
 
+	public long update(Vehicle vehicle) throws ServiceException {
+		long numberCreated = 0;
+
+		try {
+			numberCreated = this.vehicleDao.update(vehicle);
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
+		return numberCreated;
+	}
+
 	public long delete(Vehicle vehicle) throws ServiceException {
 		long numberDeleted = 0;
 
@@ -74,7 +85,7 @@ public class VehicleService {
 		}
 		return nbVehicle;
 	}
-	
+
 	public List<Vehicle> findVehicleByClientId(int clientId) throws ServiceException {
 		List<Vehicle> vehicleList = new ArrayList<>();
 
@@ -85,16 +96,4 @@ public class VehicleService {
 		}
 		return vehicleList;
 	}
-	
-	public int countByClientId(int clientId) throws ServiceException {
-		int nbVehicle = 0;
-
-		try {
-			nbVehicle = this.vehicleDao.countByClientId(clientId);
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
-		return nbVehicle;
-	}
-
 }

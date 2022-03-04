@@ -25,6 +25,7 @@ public class ClientDao {
 
 	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
+	private static final String UPDATE_CLIENT_QUERY = "UPDATE Client SET nom = ?, prenom = ?, email = ?, naissance = ? WHERE id = ?;";
 	private static final String FIND_CLIENT_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client WHERE id=?;";
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
 	private static final String COUNT_CLIENTS_QUERY = "SELECT COUNT(*) FROM Client;";
@@ -39,6 +40,28 @@ public class ClientDao {
 			pstmt.setString(2, client.getLastname());
 			pstmt.setString(3, client.getEmail());
 			pstmt.setDate(4, Date.valueOf(client.getBirthdate()));
+
+			int row = pstmt.executeUpdate();
+			conn.close();
+			return row;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int update(Client client) throws DaoException {
+		try {
+			Connection conn = ConnectionManager.getConnection();
+
+			PreparedStatement pstmt = conn.prepareStatement(UPDATE_CLIENT_QUERY);
+
+			pstmt.setString(1, client.getLastname());
+			pstmt.setString(2, client.getFirstname());
+			pstmt.setString(3, client.getEmail());
+			pstmt.setDate(4, Date.valueOf(client.getBirthdate()));
+			pstmt.setInt(5, client.getId());
 
 			int row = pstmt.executeUpdate();
 			conn.close();
