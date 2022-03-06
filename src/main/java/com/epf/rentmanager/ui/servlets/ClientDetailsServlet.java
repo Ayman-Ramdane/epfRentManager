@@ -54,7 +54,13 @@ public class ClientDetailsServlet extends HttpServlet {
 		int Id = Integer.parseInt(request.getParameter("id"));
 		try {
 			client = clientService.findById(Id);
-			rents = reservationService.findResaAndVehicleByClientId(Id);
+			rents = reservationService.findResaByClientId(Id);
+			for (Reservation rent : rents) {
+				Vehicle vehicle = vehicleService.findById(rent.getVehicleId());
+				String vehiclename = vehicle.getConstructor() + " " + vehicle.getModel();
+				rent.setVehicle(vehiclename);
+			}
+			
 			cars = vehicleService.findVehicleByClientId(Id);
 			nbResa = rents.size();
 			nbCar = cars.size();

@@ -3,6 +3,7 @@ package com.epf.rentmanager.ui.servlets;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,6 +39,9 @@ public class ClientCreateServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		LocalDate maxBirthDate = LocalDate.now().minus( 18, ChronoUnit.YEARS);
+		request.setAttribute("maxBirthDate", maxBirthDate);
+		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp");
 		dispatcher.forward(request, response);
 	}

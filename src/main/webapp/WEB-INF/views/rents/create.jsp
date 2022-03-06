@@ -54,7 +54,9 @@
 											de debut</label>
 
 										<div class="col-sm-10">
-											<input type="date" class="form-control" id="begin" name="begin" placeholder="begin" required>
+											<input type="date" class="form-control" id="begin"
+												name="begin" placeholder="begin" min="${minStartDate}"
+												max="${maxStartDate}" Onchange="minMaxEndDate()" required>
 										</div>
 									</div>
 									<div class="form-group">
@@ -62,7 +64,8 @@
 											de fin</label>
 
 										<div class="col-sm-10">
-											<input type="date" class="form-control" id="end" name="end" placeholder="end" required>
+											<input type="date" class="form-control" id="end" name="end"
+												placeholder="end" required>
 										</div>
 									</div>
 								</div>
@@ -96,6 +99,32 @@
 		$(function() {
 			$('[data-mask]').inputmask()
 		});
+	</script>
+	<script>
+		function minMaxEndDate() {
+			var inputDate;
+			var minDate;
+			var minDateString;
+			var maxDate;
+			var maxDateString;
+
+			inputDate = document.getElementById('begin').value;
+
+			minDate = new Date(inputDate);
+			minDate.setDate(minDate.getDate() + 1);
+			minDateString = minDate.getFullYear() + "-"
+					+ ("0" + (minDate.getMonth() + 1)).slice(-2) + "-"
+					+ (minDate.getDate());
+
+			maxDate = new Date(inputDate);
+			maxDate.setDate(maxDate.getDate() + 7);
+			maxDateString = maxDate.getFullYear() + "-"
+					+ ("0" + (maxDate.getMonth() + 1)).slice(-2) + "-"
+					+ (maxDate.getDate());
+
+			document.getElementById('end').setAttribute('min', minDateString);
+			document.getElementById('end').setAttribute('max', maxDateString);
+		}
 	</script>
 </body>
 </html>

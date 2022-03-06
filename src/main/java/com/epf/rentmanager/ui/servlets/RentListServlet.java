@@ -15,8 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
+import com.epf.rentmanager.model.Vehicle;
+import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
+import com.epf.rentmanager.service.VehicleService;
 
 @WebServlet(urlPatterns = "/rents")
 
@@ -27,6 +31,10 @@ public class RentListServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
+	ClientService clientService;
+	@Autowired
+	VehicleService vehicleService;
 	@Autowired
 	ReservationService reservationService;
 
@@ -41,7 +49,18 @@ public class RentListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		List<Reservation> rents;
 		try {
-			rents = reservationService.joinAll();
+			rents = reservationService.findAll();
+			for (Reservation rent : rents) {
+
+				Client client = clientService.findById(rent.getClientId());
+				String clientFullName = client.getFirstname() + " " + client.getLastname();
+				rent.setClient(clientFullName);
+
+				Vehicle vehicle = vehicleService.findById(rent.getVehicleId());
+				String vehiclename = vehicle.getConstructor() + " " + vehicle.getModel();
+				rent.setVehicle(vehiclename);
+			}
+			
 			request.setAttribute("rents", rents);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/rents/list.jsp");
 			dispatcher.forward(request, response);

@@ -31,8 +31,7 @@
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="manufacturer"
 												name="manufacturer" placeholder="Marque" maxlength="100"
-												onkeypress="return /[a-z]/i.test(event.key)"
-												value="${Manufacturer}" required>
+												pattern="[a-zA-Z0-9-]+" value="${Manufacturer}" required>
 										</div>
 									</div>
 									<div class="form-group">
@@ -41,7 +40,7 @@
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="modele"
 												name="modele" placeholder="Modele" maxlength="100"
-												pattern="[a-zA-Z0-9]+" value="${Modele}" required>
+												pattern="[a-zA-Z0-9-]+" value="${Modele}" required>
 										</div>
 									</div>
 									<div class="form-group">

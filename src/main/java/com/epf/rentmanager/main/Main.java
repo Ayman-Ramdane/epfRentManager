@@ -10,6 +10,7 @@ import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -38,15 +39,19 @@ public class Main {
 		ClientService clientService = context.getBean(ClientService.class);
 		VehicleService vehicleService = context.getBean(VehicleService.class);
 		ReservationService reservationService = context.getBean(ReservationService.class);
-		try {
-			Client client = new Client(6,"AlGhul","Talia", "talia.ghul@gmail.com", LocalDate.parse("1988-10-15"));
-			List<Client> clients = clientService.findAll();
-			System.out.println(clients);
-			clientService.update(client);
-			List<Client> rents = clientService.findAll();
-			System.out.println(rents);
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
+		
+		LocalDate Today = LocalDate.now().minus(18, ChronoUnit.YEARS );
+		LocalDate.parse("1988-10-15").getYear();
+		System.out.println(Today);
+//		try {
+//			Client client = new Client(6,"Al Ghul","Talia", "talia.ghul@gmail.com", LocalDate.parse("1988-10-15"));
+//			List<Client> clients = clientService.findAll();
+//			System.out.println(clients);
+//			clientService.update(client);
+//			List<Client> rents = clientService.findAll();
+//			System.out.println(rents);
+//		} catch (ServiceException e) {
+//			e.printStackTrace();
+//		}
 	}
 }

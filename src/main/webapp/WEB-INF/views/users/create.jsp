@@ -31,7 +31,7 @@
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="lastname"
 												name="lastname" placeholder="Nom" maxlength="100"
-												onkeypress="return /[a-z]/i.test(event.key)" required>
+												pattern="[a-zA-Z-]+" required>
 										</div>
 									</div>
 									<div class="form-group">
@@ -40,7 +40,7 @@
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="firstname"
 												name="firstname" placeholder="Prenom"
-												onkeypress="return /[a-z]/i.test(event.key)" required>
+												pattern="[a-zA-ZéèÉÈ]+" required>
 										</div>
 									</div>
 									<div class="form-group">
@@ -57,7 +57,8 @@
 
 										<div class="col-sm-10">
 											<input type="date" class="form-control" id="birthdate"
-												name="birthdate" placeholder="birthDate" min=required>
+												name="birthdate" placeholder="birthDate"
+												max="${maxBirthDate}" required>
 										</div>
 									</div>
 								</div>

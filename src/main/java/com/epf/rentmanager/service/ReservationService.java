@@ -92,24 +92,6 @@ public class ReservationService {
 		return null;
 	}
 
-	public List<Reservation> joinAll() throws ServiceException {
-		try {
-			return this.reservationDao.joinAll();
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public List<Reservation> findResaAndVehicleByClientId(int clientId) throws ServiceException {
-		try {
-			return this.reservationDao.findResaAndVehicleByClientId(clientId);
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	public int count() throws ServiceException {
 		int nbResa = 0;
 

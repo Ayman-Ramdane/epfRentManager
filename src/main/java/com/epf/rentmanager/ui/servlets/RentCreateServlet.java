@@ -3,6 +3,7 @@ package com.epf.rentmanager.ui.servlets;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -51,6 +52,10 @@ public class RentCreateServlet extends HttpServlet {
 			throws ServletException, IOException {
 		List<Vehicle> vehicles;
 		List<Client> clients;
+		LocalDate minStartDate = LocalDate.now();
+		LocalDate maxStartDate = LocalDate.now().plus(6, ChronoUnit.MONTHS);
+		request.setAttribute("minStartDate", minStartDate);
+		request.setAttribute("maxStartDate", maxStartDate);
 		try {
 			vehicles = vehicleService.findAll();
 			clients = clientService.findAll();
