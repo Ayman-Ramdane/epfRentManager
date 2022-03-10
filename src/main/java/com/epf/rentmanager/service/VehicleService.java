@@ -7,51 +7,65 @@ import org.springframework.stereotype.Service;
 
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.exception.VehicleException;
+import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
+import com.epf.rentmanager.validator.VehicleValidator;
+import com.epf.rentmanager.dao.ReservationDao;
 import com.epf.rentmanager.dao.VehicleDao;
 
 @Service
 public class VehicleService {
 
 	private VehicleDao vehicleDao;
+	private VehicleValidator vehicleValidator;
+	private ReservationDao reservationDao;
 
-	private VehicleService(VehicleDao vehicleDao) {
+	private VehicleService(VehicleDao vehicleDao, VehicleValidator vehicleValidator, ReservationDao reservationDao) {
 		this.vehicleDao = vehicleDao;
+		this.reservationDao = reservationDao;
+		this.vehicleValidator = vehicleValidator;
 	}
 
-	public long create(Vehicle vehicle) throws ServiceException {
+	public long create(Vehicle vehicle) throws VehicleException {
 		long numberCreated = 0;
-
-		try {
-			numberCreated = this.vehicleDao.create(vehicle);
-		} catch (DaoException e) {
-			e.printStackTrace();
+		if (vehicleValidator.constructorIsValid(vehicle) & vehicleValidator.modelIsValid(vehicle)
+				& vehicleValidator.seatIsValid(vehicle)) {
+			try {
+				numberCreated = this.vehicleDao.create(vehicle);
+			} catch (DaoException e) {
+				e.printStackTrace();
+			}
 		}
 		return numberCreated;
 	}
 
-	public long update(Vehicle vehicle) throws ServiceException {
+	public long update(Vehicle vehicle) throws VehicleException {
 		long numberCreated = 0;
-
-		try {
-			numberCreated = this.vehicleDao.update(vehicle);
-		} catch (DaoException e) {
-			e.printStackTrace();
+		if (vehicleValidator.constructorIsValid(vehicle) & vehicleValidator.modelIsValid(vehicle)
+				& vehicleValidator.seatIsValid(vehicle)) {
+			try {
+				numberCreated = this.vehicleDao.update(vehicle);
+			} catch (DaoException e) {
+				e.printStackTrace();
+			}
 		}
 		return numberCreated;
 	}
 
 	public long delete(Vehicle vehicle) throws ServiceException {
 		long numberDeleted = 0;
-
+		int vehicleId = vehicle.getId();
 		try {
+			List<Reservation> listReservations = reservationDao.findResaByVehicleId(vehicleId);
+			for (Reservation reservation : listReservations) {
+				reservationDao.delete(reservation);
+			}
 			numberDeleted = this.vehicleDao.delete(vehicle);
 		} catch (DaoException e) {
 			e.printStackTrace();
 		}
-
 		return numberDeleted;
-
 	}
 
 	public Vehicle findById(int id) throws ServiceException {

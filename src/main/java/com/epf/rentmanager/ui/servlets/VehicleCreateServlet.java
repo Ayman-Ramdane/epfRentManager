@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.exception.VehicleException;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.VehicleService;
 
@@ -51,7 +51,7 @@ public class VehicleCreateServlet extends HttpServlet {
 		try {
 			vehicleService.create(vehicle);
 
-		} catch (ServiceException e) {
+		} catch (VehicleException e) {
 			e.printStackTrace();
 		}
 		response.sendRedirect("/rentmanager/cars");

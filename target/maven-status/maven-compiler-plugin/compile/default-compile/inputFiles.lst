@@ -1,11 +1,16 @@
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\RentUpdateServlet.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\RentListServlet.java
+C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\validator\RentValidator.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\main\Main.java
+C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\validator\ClientValidator.java
+C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\exception\VehicleException.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\ClientUpdateServlet.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\service\VehicleService.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\configuration\AppConfiguration.java
+C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\exception\RentException.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\ClientListServlet.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\VehicleCreateServlet.java
+C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\exception\ClientException.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\service\ReservationService.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\exception\DaoException.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\model\Reservation.java
@@ -13,6 +18,7 @@ C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\e
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\RentCreateServlet.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\configuration\WebConfiguration.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\ui\servlets\VehicleUpdateServlet.java
+C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\validator\VehicleValidator.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\persistence\ConnectionManager.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\dao\VehicleDao.java
 C:\Users\ramda\Documents\EPF\Langage_Java\TP\TP1\rentmanager\src\main\java\com\epf\rentmanager\model\Client.java

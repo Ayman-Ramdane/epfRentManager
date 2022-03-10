@@ -67,7 +67,8 @@
 
 										<div class="col-sm-10">
 											<input type="date" class="form-control" id="end" name="end"
-												placeholder="end" value="${endDate}" required>
+												placeholder="end" value="${endDate}"
+												Onclick="minMaxEndDate()" required>
 										</div>
 									</div>
 								</div>

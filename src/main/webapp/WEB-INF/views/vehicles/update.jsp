@@ -50,7 +50,7 @@
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="seats"
 												name="seats" placeholder="Nombre de places" value="${Seats}"
-												required>
+												min=2 max=9 required>
 										</div>
 									</div>
 								</div>

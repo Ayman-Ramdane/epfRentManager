@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.epf.rentmanager.exception.DaoException;
@@ -18,6 +19,7 @@ import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.persistence.ConnectionManager;
 
 @Repository
+@Component
 public class ClientDao {
 
 	private ClientDao() {
@@ -36,8 +38,8 @@ public class ClientDao {
 
 			PreparedStatement pstmt = conn.prepareStatement(CREATE_CLIENT_QUERY);
 
-			pstmt.setString(1, client.getFirstname());
-			pstmt.setString(2, client.getLastname());
+			pstmt.setString(1, client.getLastname());
+			pstmt.setString(2, client.getFirstname());
 			pstmt.setString(3, client.getEmail());
 			pstmt.setDate(4, Date.valueOf(client.getBirthdate()));
 

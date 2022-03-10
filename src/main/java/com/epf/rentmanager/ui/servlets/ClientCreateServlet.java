@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.exception.ClientException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.service.ClientService;
 
@@ -61,7 +61,7 @@ public class ClientCreateServlet extends HttpServlet {
 		try {
 			clientService.create(client);
 
-		} catch (ServiceException e) {
+		} catch (ClientException e) {
 			e.printStackTrace();
 		}
 		response.sendRedirect("/rentmanager/users");

@@ -31,7 +31,7 @@
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="lastname"
 												name="lastname" placeholder="Nom" maxlength="100"
-												pattern="[a-zA-Z-]+" required>
+												pattern="[a-zA-Z-]{3,}" required>
 										</div>
 									</div>
 									<div class="form-group">
@@ -40,7 +40,7 @@
 										<div class="col-sm-10">
 											<input type="text" class="form-control" id="firstname"
 												name="firstname" placeholder="Prenom"
-												pattern="[a-zA-ZéèÉÈ]+" required>
+												pattern="[a-zA-Z-]{3,}" required>
 										</div>
 									</div>
 									<div class="form-group">

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import com.epf.rentmanager.exception.RentException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
@@ -89,7 +90,7 @@ public class RentUpdateServlet extends HttpServlet {
 		try {
 			reservationService.update(reservation);
 			response.sendRedirect("/rentmanager/rents");
-		} catch (ServiceException e) {
+		} catch (RentException e) {
 			e.printStackTrace();
 		}
 	}

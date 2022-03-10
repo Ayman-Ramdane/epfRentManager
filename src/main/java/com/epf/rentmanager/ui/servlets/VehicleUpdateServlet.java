@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.exception.VehicleException;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
@@ -64,7 +65,7 @@ public class VehicleUpdateServlet extends HttpServlet {
 		Vehicle vehicle = new Vehicle(vehicleId, marque, model, nbPlace);
 		try {
 			vehicleService.update(vehicle);
-		} catch (ServiceException e) {
+		} catch (VehicleException e) {
 			e.printStackTrace();
 		}
 		response.sendRedirect("/rentmanager/cars");

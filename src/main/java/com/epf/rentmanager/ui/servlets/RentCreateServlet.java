@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import com.epf.rentmanager.exception.RentException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
@@ -32,7 +33,7 @@ public class RentCreateServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Autowired
 	ClientService clientService;
 	@Autowired
@@ -45,7 +46,6 @@ public class RentCreateServlet extends HttpServlet {
 		super.init();
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 	}
-
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -85,7 +85,7 @@ public class RentCreateServlet extends HttpServlet {
 		try {
 			reservationService.create(reservation);
 			response.sendRedirect("/rentmanager/rents");
-		} catch (ServiceException e) {
+		} catch (RentException e) {
 			e.printStackTrace();
 		}
 	}

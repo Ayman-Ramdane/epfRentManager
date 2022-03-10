@@ -29,8 +29,6 @@ public class Reservation {
 		this.dateStart = dateStart;
 		this.dateEnd = dateEnd;
 	}
-	
-	
 
 	public Reservation(int id, int clientId, String vehicle, LocalDate dateStart, LocalDate dateEnd) {
 		super();
