@@ -37,9 +37,12 @@ public class ClientDao {
 			Connection conn = ConnectionManager.getConnection();
 
 			PreparedStatement pstmt = conn.prepareStatement(CREATE_CLIENT_QUERY);
+			
+			String firstName = client.getFirstname();
+			firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1);
 
-			pstmt.setString(1, client.getLastname());
-			pstmt.setString(2, client.getFirstname());
+			pstmt.setString(1, client.getLastname().toUpperCase());
+			pstmt.setString(2, firstName);
 			pstmt.setString(3, client.getEmail());
 			pstmt.setDate(4, Date.valueOf(client.getBirthdate()));
 
