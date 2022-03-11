@@ -1,6 +1,6 @@
 # Ayman RAMDANE EPF rentmanager webApp
 
-## Initialiser la base de donner
+## Initialiser la base de données
 
 ```
 Run src\main\java\com\epf\rentmanager\persistence\FillDatabase.java
